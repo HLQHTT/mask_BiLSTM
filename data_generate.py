@@ -9,7 +9,7 @@ vocab = vocab_generate('./datasets_deep_learning.csv', "SMILES表示")
 #提供给模型数据输入的接口，模型里只需调整种子的数字，即可得到不同的训练集与测试集
 def data_generate(seed):
     #光敏分子数据集
-    dataset = Dataset('./datasets_deep_learning.csv','SMILES表示','Φsam/Φref','溶剂SMILES', '标准品SMILES', '测定波长（nm）', 100,100,100,vocab,seed)
+    dataset = Dataset('./datasets_deep_learning.csv','SMILES表示','Φsam/Φref','溶剂SMILES', '标准品SMILES', '测定波长（nm）', 100, 100, 100, vocab, seed)
     data_smiles = dataset.get_data()
     x_train = data_smiles[0].astype('int32')
     y_train = data_smiles[1].astype('float32').reshape(-1, 1)
@@ -34,7 +34,7 @@ def data_generate(seed):
     x_test = np.array(pd.concat([x_test_temp, pd.DataFrame(ref_test)], axis=1)).astype('int32')
 
 
-    return x_train, y_train, x_test, y_test, y_mean, y_max
+    return x_train, y_train, x_test, y_test, mu_train, std_train
 
 
 def ESOL_data_generate(seed):
@@ -59,3 +59,4 @@ def ESOL_data_generate(seed):
 
 
     return x_train, y_train, x_test, y_test
+
