@@ -49,14 +49,15 @@ def ESOL_data_generate(seed):
     data_smiles = dataset.get_data()
     x_train = data_smiles[0].astype('int32')
     y_train = data_smiles[1].astype('float32').reshape(-1, 1)
-    y_mean = y_train.mean()
-    y_max = y_train.max()
-    y_train = (y_train-y_mean)/y_max
+    mu_train = y_train.mean()
+    std_train = y_train.std()
+    y_train = (y_train - mu_train) / std_train
 
     x_test = data_smiles[2].astype('int32')
     y_test = data_smiles[3].astype('float32').reshape(-1, 1)
-    y_test = (y_test-y_mean)/y_max
+    y_test  = (y_test  - mu_train) / std_train
 
 
     return x_train, y_train, x_test, y_test
+
 
